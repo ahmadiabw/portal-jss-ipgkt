@@ -1,4 +1,3 @@
-
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -8,7 +7,12 @@ import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 
 export const sendMessageToGemini = async (message: string): Promise<string> => {
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const apiKey = process.env.API_KEY;
+    if (!apiKey) {
+      return "Kunci API tidak dikonfigurasikan. Sila hubungi pentadbir.";
+    }
+
+    const ai = new GoogleGenAI({ apiKey });
     
     const response: GenerateContentResponse = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
