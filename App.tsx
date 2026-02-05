@@ -112,13 +112,15 @@ const App: React.FC = () => {
                 </button>
               ))}
             </nav>
-            <button 
-              onClick={toggleTheme}
-              className="p-2.5 rounded-full hover:bg-slate-100 transition-all border"
-              style={{ borderColor: theme.border }}
-            >
-              {isDarkMode ? <Sun size={16} /> : <Moon size={16} />}
-            </button>
+            <div className="flex items-center gap-2 border-l pl-4" style={{ borderColor: theme.border }}>
+              <button 
+                onClick={toggleTheme}
+                className="p-2.5 rounded-full hover:bg-slate-100 transition-all border"
+                style={{ borderColor: theme.border }}
+              >
+                {isDarkMode ? <Sun size={16} /> : <Moon size={16} />}
+              </button>
+            </div>
           </div>
 
           <div className="lg:hidden flex items-center gap-4">
@@ -184,7 +186,7 @@ const App: React.FC = () => {
         <section id="profil" className="py-24 px-6" style={{ backgroundColor: theme.bgSecondary }}>
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-6xl font-heading font-bold mb-4 uppercase">HALA <GradientText text="STRATEGIK" theme={isDarkMode ? 'dark' : 'light'} /></h2>
+              <h2 className="text-4xl md:text-6xl font-heading font-bold mb-4 uppercase">HALA <br/><GradientText text="STRATEGIK" theme={isDarkMode ? 'dark' : 'light'} /></h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="p-10 rounded-3xl border shadow-sm" style={{ borderColor: theme.border, backgroundColor: isDarkMode ? '#001a33' : '#FFFFFF' }}>
