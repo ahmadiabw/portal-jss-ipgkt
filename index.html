@@ -4,11 +4,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>PORTAL JSS IPGKT | CHECKPOINT 2.0</title>
+    <title>PORTAL JSS IPGKT</title>
     
-    <!-- Penting untuk Google Sites supaya pautan berfungsi dari dalam iframe -->
+    <!-- Meta untuk Google Sites & GitHub -->
     <base target="_blank">
-
+    <meta name="theme-color" content="#001a33" />
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +19,6 @@
       :root {
         --jss-bg: #001a33;
         --jss-red: #EE2A24;
-        --jss-blue: #003366;
       }
 
       body {
@@ -28,11 +28,8 @@
         color: #fff;
         font-family: 'Space Grotesk', sans-serif;
         overflow-x: hidden;
-        /* Mengelakkan jitter pada sesetengah browser */
-        -webkit-font-smoothing: antialiased;
       }
 
-      /* Splash Screen */
       #loader-wrapper {
         position: fixed;
         inset: 0;
@@ -42,112 +39,106 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s;
+        transition: opacity 0.5s ease-out, visibility 0.5s;
       }
 
       .loader-logo {
-        width: 100px;
-        height: 100px;
-        margin-bottom: 24px;
-        filter: drop-shadow(0 0 15px rgba(238, 42, 36, 0.3));
-        animation: breath 3s infinite ease-in-out;
+        width: 80px;
+        height: 80px;
+        margin-bottom: 20px;
+        animation: pulse 2s infinite ease-in-out;
       }
 
-      .loader-bar-container {
-        width: 200px;
+      .loader-bar {
+        width: 150px;
         height: 2px;
-        background: rgba(255,255,255,0.05);
+        background: rgba(255,255,255,0.1);
         position: relative;
         overflow: hidden;
-        border-radius: 10px;
+        border-radius: 2px;
       }
 
       .loader-progress {
         position: absolute;
-        width: 50%;
+        width: 40%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, var(--jss-red), transparent);
-        animation: slide 1.5s infinite linear;
+        background: var(--jss-red);
+        animation: loading 1.5s infinite ease-in-out;
       }
 
-      @keyframes breath {
-        0%, 100% { transform: scale(1); opacity: 0.9; }
-        50% { transform: scale(1.05); opacity: 1; }
+      #error-console {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        background: rgba(0,0,0,0.9);
+        border: 1px solid var(--jss-red);
+        color: #ff4d4d;
+        padding: 15px;
+        border-radius: 10px;
+        font-family: monospace;
+        font-size: 12px;
+        z-index: 10000;
+        white-space: pre-wrap;
       }
 
-      @keyframes slide {
-        0% { transform: translateX(-100%); }
-        100% { transform: translateX(200%); }
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 0.8; }
+        50% { transform: scale(1.1); opacity: 1; }
       }
 
-      /* Class yang ditambah oleh JavaScript apabila React siap */
+      @keyframes loading {
+        0% { left: -40%; }
+        100% { left: 100%; }
+      }
+
       .app-ready #loader-wrapper {
         opacity: 0;
         visibility: hidden;
-        pointer-events: none;
-      }
-
-      /* Styling tajuk font-heading */
-      h1, h2, h3, .font-heading {
-        font-family: 'Syncopate', sans-serif;
-      }
-
-      /* Custom scrollbar untuk Google Sites */
-      ::-webkit-scrollbar {
-        width: 6px;
-      }
-      ::-webkit-scrollbar-track {
-        background: var(--jss-bg);
-      }
-      ::-webkit-scrollbar-thumb {
-        background: rgba(255,255,255,0.1);
-        border-radius: 10px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: var(--jss-red);
       }
     </style>
 
     <script type="importmap">
-    {
-      "imports": {
-        "react/": "https://aistudiocdn.com/react@^19.2.0/",
-        "react": "https://aistudiocdn.com/react@^19.2.0",
-        "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-        "react-dom": "https://aistudiocdn.com/react-dom@^19.2.0",
-        "lucide-react": "https://aistudiocdn.com/lucide-react@^0.553.0",
-        "@google/genai": "https://aistudiocdn.com/@google/genai@^1.29.0",
-        "framer-motion": "https://aistudiocdn.com/framer-motion@^12.23.24"
-      }
-    }
-    </script>
+{
+  "imports": {
+    "react": "https://esm.sh/react@19.0.0",
+    "react-dom": "https://esm.sh/react-dom@19.0.0",
+    "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
+    "lucide-react": "https://esm.sh/lucide-react@0.473.0",
+    "@google/genai": "https://esm.sh/@google/genai@0.21.0",
+    "framer-motion": "https://esm.sh/framer-motion@11.15.0",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/"
+  }
+}
+</script>
   </head>
   <body>
-    <!-- Splash Screen / Loader -->
     <div id="loader-wrapper">
-      <img src="https://github.com/ahmadiabw/portal-jss/blob/main/aset/logo%20IPGKT.png?raw=true" alt="JSS Logo" class="loader-logo" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/8/87/Logo_IPGM.png'"/>
-      <div class="loader-bar-container">
+      <img src="https://github.com/ahmadiabw/portal-jss/blob/main/aset/logo%20IPGKT.png?raw=true" alt="Logo" class="loader-logo" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/8/87/Logo_IPGM.png'"/>
+      <div class="loader-bar">
         <div class="loader-progress"></div>
       </div>
-      <p style="margin-top: 20px; font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; opacity: 0.4; font-weight: 700;">Jabatan Sains Sosial</p>
+      <p style="margin-top: 15px; font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.5;">Memulakan Sistem...</p>
     </div>
 
-    <!-- React App Mount Point -->
+    <div id="error-console"></div>
+
     <div id="root"></div>
 
-    <!-- Load the main entry point -->
-    <script type="module" src="index.tsx"></script>
+    <script type="module">
+      const errorConsole = document.getElementById('error-console');
+      
+      window.onerror = function(msg, url, line, col, error) {
+        errorConsole.style.display = 'block';
+        errorConsole.innerText += `\n[RALAT]: ${msg} (Baris: ${line})`;
+        return false;
+      };
 
-    <script>
-      /**
-       * Mencegah "Flicker" dan memastikan transisi smooth.
-       * Kita menunggu sehingga window.load atau React mount event.
-       */
-      window.addEventListener('DOMContentLoaded', () => {
-        // Beri sedikit masa extra untuk React "settle"
-        setTimeout(() => {
-          document.body.classList.add('app-ready');
-        }, 1200);
+      import('./index.tsx').catch(err => {
+        errorConsole.style.display = 'block';
+        errorConsole.innerText += `\n[SISTEM]: Gagal memuatkan komponen utama. Sila pastikan anda menggunakan URL GitHub Pages yang betul.\nDetail: ${err.message}`;
       });
     </script>
   </body>

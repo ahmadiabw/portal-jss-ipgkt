@@ -8,14 +8,40 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 
-const rootElement = document.getElementById('root');
-if (!rootElement) {
-  throw new Error("Could not find root element to mount to");
-}
+const mountApp = () => {
+  const rootElement = document.getElementById('root');
+  
+  if (!rootElement) {
+    console.error("Elemen #root tidak dijumpai dalam DOM.");
+    return;
+  }
 
-const root = ReactDOM.createRoot(rootElement);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+  try {
+    const root = ReactDOM.createRoot(rootElement);
+    root.render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    );
+
+    // Hilangkan loader selepas render pertama selesai
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        document.body.classList.add('app-ready');
+      }, 500);
+    });
+  } catch (error) {
+    const consoleDiv = document.getElementById('error-console');
+    if (consoleDiv) {
+      consoleDiv.style.display = 'block';
+      consoleDiv.innerText += `\n[REACT ERROR]: ${error.message}`;
+    }
+  }
+};
+
+// Pastikan skrip dijalankan selepas DOM sedia
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', mountApp);
+} else {
+  mountApp();
+}
