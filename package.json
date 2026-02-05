@@ -1,5 +1,5 @@
 {
-  "name": "jss-ipg-kampus-tawau",
+  "name": "portal-jss-ipgkt",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,8 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "lucide-react": "^0.553.0",
     "@google/genai": "^1.29.0",
     "framer-motion": "^12.23.24"
