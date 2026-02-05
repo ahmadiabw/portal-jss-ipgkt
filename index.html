@@ -3,143 +3,48 @@
 <html lang="ms">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>PORTAL JSS IPGKT</title>
-    
-    <!-- Meta untuk Google Sites & GitHub -->
-    <base target="_blank">
-    <meta name="theme-color" content="#001a33" />
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JABATAN SAINS SOSIAL | PORTAL RASMI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
-    
     <style>
-      :root {
-        --jss-bg: #001a33;
-        --jss-red: #EE2A24;
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 50px;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
       }
-
+      ::-webkit-scrollbar {
+        display: none;
+      }
       body {
-        margin: 0;
-        padding: 0;
-        background-color: var(--jss-bg);
-        color: #fff;
         font-family: 'Space Grotesk', sans-serif;
+        background-color: #001a33;
+        color: #fff;
         overflow-x: hidden;
       }
-
-      #loader-wrapper {
-        position: fixed;
-        inset: 0;
-        z-index: 9999;
-        background-color: var(--jss-bg);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        transition: opacity 0.5s ease-out, visibility 0.5s;
-      }
-
-      .loader-logo {
-        width: 80px;
-        height: 80px;
-        margin-bottom: 20px;
-        animation: pulse 2s infinite ease-in-out;
-      }
-
-      .loader-bar {
-        width: 150px;
-        height: 2px;
-        background: rgba(255,255,255,0.1);
-        position: relative;
-        overflow: hidden;
-        border-radius: 2px;
-      }
-
-      .loader-progress {
-        position: absolute;
-        width: 40%;
-        height: 100%;
-        background: var(--jss-red);
-        animation: loading 1.5s infinite ease-in-out;
-      }
-
-      #error-console {
-        display: none;
-        position: fixed;
-        bottom: 20px;
-        left: 20px;
-        right: 20px;
-        background: rgba(0,0,0,0.9);
-        border: 1px solid var(--jss-red);
-        color: #ff4d4d;
-        padding: 15px;
-        border-radius: 10px;
-        font-family: monospace;
-        font-size: 12px;
-        z-index: 10000;
-        white-space: pre-wrap;
-      }
-
-      @keyframes pulse {
-        0%, 100% { transform: scale(1); opacity: 0.8; }
-        50% { transform: scale(1.1); opacity: 1; }
-      }
-
-      @keyframes loading {
-        0% { left: -40%; }
-        100% { left: 100%; }
-      }
-
-      .app-ready #loader-wrapper {
-        opacity: 0;
-        visibility: hidden;
+      h1, h2, h3, .font-heading {
+        font-family: 'Syncopate', sans-serif;
       }
     </style>
-
-    <script type="importmap">
+  <script type="importmap">
 {
   "imports": {
-    "react": "https://esm.sh/react@19.0.0",
-    "react-dom": "https://esm.sh/react-dom@19.0.0",
-    "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
-    "lucide-react": "https://esm.sh/lucide-react@0.473.0",
-    "@google/genai": "https://esm.sh/@google/genai@0.21.0",
-    "framer-motion": "https://esm.sh/framer-motion@11.15.0",
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/"
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react-dom": "https://aistudiocdn.com/react-dom@^19.2.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.553.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.29.0",
+    "framer-motion": "https://aistudiocdn.com/framer-motion@^12.23.24"
   }
 }
 </script>
-  </head>
+</head>
   <body>
-    <div id="loader-wrapper">
-      <img src="https://github.com/ahmadiabw/portal-jss/blob/main/aset/logo%20IPGKT.png?raw=true" alt="Logo" class="loader-logo" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/8/87/Logo_IPGM.png'"/>
-      <div class="loader-bar">
-        <div class="loader-progress"></div>
-      </div>
-      <p style="margin-top: 15px; font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.5;">Memulakan Sistem...</p>
-    </div>
-
-    <div id="error-console"></div>
-
     <div id="root"></div>
-
-    <script type="module">
-      const errorConsole = document.getElementById('error-console');
-      
-      window.onerror = function(msg, url, line, col, error) {
-        errorConsole.style.display = 'block';
-        errorConsole.innerText += `\n[RALAT]: ${msg} (Baris: ${line})`;
-        return false;
-      };
-
-      import('./index.tsx').catch(err => {
-        errorConsole.style.display = 'block';
-        errorConsole.innerText += `\n[SISTEM]: Gagal memuatkan komponen utama. Sila pastikan anda menggunakan URL GitHub Pages yang betul.\nDetail: ${err.message}`;
-      });
-    </script>
+    <script type="module" src="index.tsx"></script>
   </body>
 </html>

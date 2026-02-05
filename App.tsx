@@ -20,6 +20,7 @@ import Carousel from './components/Carousel';
 import NewsSection from './components/NewsSection';
 import { StaffMember } from './types';
 
+// Fix: Define the AIStudio interface to satisfy global expectations and avoid conflict with redeclaration on Window
 declare global {
   interface AIStudio {
     hasSelectedApiKey: () => Promise<boolean>;
@@ -97,7 +98,7 @@ const JSS_STAFF: StaffMember[] = [
 ];
 
 const App: React.FC = () => {
-  const [isDarkMode, setIsDarkMode] = useState(true); 
+  const [isDarkMode, setIsDarkMode] = useState(false); 
   const [logoHasError, setLogoHasError] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [selectedStaff, setSelectedStaff] = useState<StaffMember | null>(null);
@@ -105,6 +106,7 @@ const App: React.FC = () => {
   const theme = isDarkMode ? THEMES.dark : THEMES.light;
 
   useEffect(() => {
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
     document.body.style.backgroundColor = theme.bgPrimary;
     document.body.style.color = theme.textPrimary;
   }, [isDarkMode, theme]);
@@ -136,7 +138,7 @@ const App: React.FC = () => {
 
   return (
     <div 
-      className="relative min-h-screen transition-colors duration-500 selection:bg-[#EE2A24] selection:text-white overflow-x-hidden"
+      className="relative min-h-screen transition-colors duration-500 selection:bg-[#EE2A24] selection:text-white cursor-auto md:cursor-none overflow-x-hidden"
       style={{ backgroundColor: theme.bgPrimary, color: theme.textPrimary }}
     >
       <CustomCursor />
@@ -211,30 +213,6 @@ const App: React.FC = () => {
           </div>
         </header>
       </div>
-
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div 
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            className="fixed inset-0 z-[60] flex flex-col p-8 pt-24 gap-8"
-            style={{ backgroundColor: theme.bgPrimary }}
-          >
-            {['Profil', 'Kakitangan', 'Berita', 'Program'].map((item) => (
-              <button 
-                key={item}
-                onClick={() => scrollToSection(item.toLowerCase())}
-                className="text-4xl font-heading font-black text-left uppercase tracking-tighter"
-                style={{ color: theme.textPrimary }}
-              >
-                {item}
-              </button>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* Hero Branding Section */}
       <section className="relative pt-32 pb-16 px-6 md:px-12 flex items-center justify-center" style={{ backgroundColor: theme.bgPrimary }}>
@@ -350,6 +328,7 @@ const App: React.FC = () => {
         </div>
       </section>
 
+      {/* Komponen Berita JSS */}
       <NewsSection theme={isDarkMode ? 'dark' : 'light'} />
 
       {/* Program 2026 Section */}
